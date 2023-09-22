@@ -1,7 +1,10 @@
 package com.rays.common;
 
+import java.io.PrintWriter;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -37,7 +40,7 @@ public class FrontCtl extends HandlerInterceptorAdapter {
 		
 		
 		
-		HttpSession session = request.getSession(); 
+		 HttpSession session = request.getSession(); 
 		String path = request.getServletPath();
 		
 		System.out.println(" Front Ctl Called " + path);
@@ -65,13 +68,12 @@ public class FrontCtl extends HandlerInterceptorAdapter {
 				  response.setHeader("Access-Control-Allow-Headers",
 				  "set-cookie,Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers"
 				  );
-				  
-				  PrintWriter out = response.getWriter(); 
+				 return false;
+			}else {
+				PrintWriter out = response.getWriter(); 
 				  out.print("{\"success\":\"false\",\"error\":\"OOPS! Your session has been expired\"}"
 				  ); out.close();
 				 System.out.println("going to return false ");
-				 
-				 return false;
 			}
 		}
 		System.out.println("going to return true");
@@ -79,8 +81,8 @@ public class FrontCtl extends HandlerInterceptorAdapter {
 	}
 
 	
-*/
-		boolean pass= false;
+
+	/*	boolean pass= false;
 		if (!path.startsWith("/Auth/")) {
 		//	System.out.println("inside if condition");
 			
@@ -127,7 +129,7 @@ public class FrontCtl extends HandlerInterceptorAdapter {
 		}
 		}
 		return pass;
-	}
+	}*/
 	@Override
 	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,
 			ModelAndView modelAndView) throws Exception {

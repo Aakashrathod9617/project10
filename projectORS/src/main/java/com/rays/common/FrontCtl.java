@@ -47,7 +47,15 @@ public class FrontCtl extends HandlerInterceptorAdapter {
 		
 		  System.out.println(" Session ID " + session.getId());
 		  System.out.println("Usercontext " + session.getAttribute("`"));
-		 
+				
+		 final String requestTokenHeader = request.getHeader("Authorization");
+		System.out.println(requestTokenHeader+"]]]]]]]]]]---------------");
+		String username = null;
+		String jwtToken = null;
+		// JWT Token is in the form "Bearer token". Remove Bearer word and get only the Token
+		if (requestTokenHeader != null && requestTokenHeader.startsWith("Bearer ")) {
+			System.out.println("Inside token != null");
+			jwtToken = requestTokenHeader.substring(7);
 
 		if (!path.startsWith("/Auth/")) {
 			System.out.println("inside if condition");
